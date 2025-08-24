@@ -5,7 +5,7 @@ import {
   redirect,
   Route,
 } from "react-router-dom";
-import AuthRoute from "./pages/authentication/AuthRoute";
+import AuthRoute from "./components/authentication/AuthRoute";
 
 const Login = lazy(() => import("./pages/authentication/Login"));
 const Signup = lazy(() => import("./pages/authentication/Signup"));

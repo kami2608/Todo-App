@@ -8,7 +8,7 @@ import { LoginSchema } from "../../schemas/userInfoSchema";
 import { login } from "../../api/loginFirebase.api";
 import DisplayError from "../../components/common/DisplayError";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "./AuthProvider";
+import { AuthContext } from "../../components/authentication/AuthProvider";
 
 type LoginUser = z.infer<typeof LoginSchema>;
 
