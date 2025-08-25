@@ -29,7 +29,7 @@ export const Radio: FC<RadioProps> = ({ children, id, name, ...props }) => {
         )}
       />{" "}
       <label htmlFor={unique}>{children}</label>
-      {errors && <ErrorMessage error={errors[name]} />}
+      {errors[name] && <ErrorMessage error={errors[name]} />}
     </div>
   );
 };

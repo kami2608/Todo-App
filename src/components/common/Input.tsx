@@ -27,9 +27,11 @@ export const Input: FC<InputProps> = ({
 
   return (
     <div>
-      <label htmlFor={unique} className="text-blue-800">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={unique} className="text-blue-800">
+          {label}
+        </label>
+      )}
       <input
         {...register(name)}
         id={unique}

@@ -7,16 +7,13 @@ export default function ErrorMessage({
     | FieldError
     | Merge<FieldError, FieldErrorsImpl<any>>
     | (Record<string, Partial<{ type: string | number; message: string }>> &
-        Partial<{ type: string | number; message: string }>)
-    | undefined;
+        Partial<{ type: string | number; message: string }>);
 }) {
   return (
     <div className={"min-h-5"}>
-      {error && (
-        <p className="text-sm text-red-700 px-1">
-          {typeof error.message === "string" ? error.message : null}
-        </p>
-      )}
+      <p className="text-sm text-red-700 px-1">
+        {typeof error.message === "string" ? error.message : null}
+      </p>
     </div>
   );
 }

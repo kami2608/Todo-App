@@ -29,7 +29,7 @@ export const TextArea: FC<TextAreaProps> = ({
 
   return (
     <div>
-      <label htmlFor={unique}>{label}</label>
+      {label && <label htmlFor={unique}>{label}</label>}
       <textarea
         id={unique}
         {...register(name)}
