@@ -5,12 +5,9 @@ import {
   redirect,
   Route,
 } from "react-router-dom";
-import AuthRoute from "./components/authentication/AuthRoute";
 
 const Login = lazy(() => import("./pages/authentication/Login"));
 const Signup = lazy(() => import("./pages/authentication/Signup"));
-const Home = lazy(() => import("./pages/main/Home"));
-const Todo = lazy(() => import("./pages/main/Todo"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,24 +29,6 @@ export const router = createBrowserRouter(
           </Suspense>
         }
       />
-      <Route element={<AuthRoute />}>
-        <Route
-          path="/home"
-          element={
-            <Suspense fallback={<p>Loading...</p>}>
-              <Home />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/todo-list"
-          element={
-            <Suspense fallback={<p>Loading...</p>}>
-              <Todo />
-            </Suspense>
-          }
-        />
-      </Route>
     </>,
   ),
 );
