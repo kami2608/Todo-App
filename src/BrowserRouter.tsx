@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 const Login = lazy(() => import("./pages/authentication/Login"));
-const Signup = lazy(() => import("./pages/authentication/Signup"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,14 +17,6 @@ export const router = createBrowserRouter(
         element={
           <Suspense fallback={<p>Loading...</p>}>
             <Login />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <Suspense fallback={<p>Loading...</p>}>
-            <Signup />
           </Suspense>
         }
       />
