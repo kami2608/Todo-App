@@ -29,49 +29,47 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="bg-primary min-h-screen">
-        <h1 className="text-heading font-bold text-secondary text-center p-10">
-          Welcome to Todo App
-        </h1>
-        <div className="flex justify-center p-8">
-          <FormProvider {...methods}>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="p-5 flex-col w-md bg-blue-50 rounded-xl"
-            >
-              <Input
-                name="email"
-                label="Enter your email:"
-                type="email"
-                variant="outlined"
-                placeholder="Your email..."
-              />
-              <Input
-                name="password"
-                label="Enter your password:"
-                type="password"
-                variant="outlined"
-                placeholder="Your password..."
-              />
-              {errors.root && (
-                <div className="text-center">
-                  <ErrorMessage error={errors.root} />
-                </div>
-              )}
-              <div className="text-center mt-10">
-                <Button title="Login" type="submit" className="text-center" />
+    <div className="bg-primary min-h-screen">
+      <h1 className="text-heading font-bold text-secondary text-center p-10">
+        Welcome to Todo App
+      </h1>
+      <div className="flex justify-center p-8">
+        <FormProvider {...methods}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="p-5 flex-col w-md bg-blue-50 rounded-xl"
+          >
+            <Input
+              name="email"
+              label="Enter your email:"
+              type="email"
+              variant="outlined"
+              placeholder="Your email..."
+            />
+            <Input
+              name="password"
+              label="Enter your password:"
+              type="password"
+              variant="outlined"
+              placeholder="Your password..."
+            />
+            {errors.root && (
+              <div className="text-center">
+                <ErrorMessage error={errors.root} />
               </div>
-              <p className="text-center pt-10 pb-5">
-                Don't have an account?{" "}
-                <Link to="/signup" className="font-bold text-secondary">
-                  Register
-                </Link>
-              </p>
-            </form>
-          </FormProvider>
-        </div>
+            )}
+            <div className="text-center mt-10">
+              <Button title="Login" type="submit" className="text-center" />
+            </div>
+            <p className="text-center pt-10 pb-5">
+              Don't have an account?{" "}
+              <Link to="/signup" className="font-bold text-secondary">
+                Register
+              </Link>
+            </p>
+          </form>
+        </FormProvider>
       </div>
-    </>
+    </div>
   );
 }
