@@ -18,10 +18,12 @@ export const Input: FC<InputProps> = ({
   id,
   ...props
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  let register: any;
+  const methods = useFormContext();
+
+  if (methods) {
+    register = methods.register;
+  }
 
   const unique = id || name;
 
@@ -33,12 +35,14 @@ export const Input: FC<InputProps> = ({
         </label>
       )}
       <input
-        {...register(name)}
+        {...(register ? register(name) : {})}
         id={unique}
         {...props}
         className={clsx(input({ variant }), props.className)}
       />
-      {errors[name] && <ErrorMessage error={errors[name]} />}
+      {methods && methods.formState.errors[name] && (
+        <ErrorMessage error={methods.formState.errors[name]} />
+      )}
     </div>
   );
 };

@@ -8,10 +8,12 @@ interface RadioProps extends Omit<HTMLProps<HTMLInputElement>, "name"> {
 }
 
 export const Radio: FC<RadioProps> = ({ children, id, name, ...props }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  let register: any;
+  const methods = useFormContext();
+
+  if (methods) {
+    register = methods.register;
+  }
 
   const unique = id || name;
 
@@ -29,7 +31,9 @@ export const Radio: FC<RadioProps> = ({ children, id, name, ...props }) => {
         )}
       />{" "}
       <label htmlFor={unique}>{children}</label>
-      {errors[name] && <ErrorMessage error={errors[name]} />}
+      {methods && methods.formState.errors[name] && (
+        <ErrorMessage error={methods.formState.errors[name]} />
+      )}
     </div>
   );
 };

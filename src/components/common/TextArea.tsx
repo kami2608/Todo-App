@@ -20,10 +20,12 @@ export const TextArea: FC<TextAreaProps> = ({
   name,
   ...props
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  let register: any;
+  const methods = useFormContext();
+
+  if (methods) {
+    register = methods.register;
+  }
 
   const unique = id || name;
 
@@ -36,7 +38,9 @@ export const TextArea: FC<TextAreaProps> = ({
         {...props}
         className={clsx(textarea({ variant: variant }), props.className)}
       />
-      {errors[name] && <ErrorMessage error={errors[name]} />}
+      {methods && methods.formState.errors[name] && (
+        <ErrorMessage error={methods.formState.errors[name]} />
+      )}
     </div>
   );
 };

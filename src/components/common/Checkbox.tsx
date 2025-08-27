@@ -13,17 +13,19 @@ export const Checkbox: FC<CheckboxProps> = ({
   name,
   ...props
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  let register: any;
+  const methods = useFormContext();
+
+  if (methods) {
+    register = methods.register;
+  }
 
   const unique = id || name;
 
   return (
     <div className="flex items-center gap-1">
       <input
-        {...register(name)}
+        {...(register ? register(name) : {})}
         type="checkbox"
         id={unique}
         {...props}
@@ -33,7 +35,9 @@ export const Checkbox: FC<CheckboxProps> = ({
         )}
       />{" "}
       <label htmlFor={unique}>{children}</label>
-      {errors[name] && <ErrorMessage error={errors[name]} />}
+      {methods && methods.formState.errors[name] && (
+        <ErrorMessage error={methods.formState.errors[name]} />
+      )}
     </div>
   );
 };
