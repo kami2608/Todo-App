@@ -5,10 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupSchema } from "../../schemas/userInfoSchema";
 import { Input } from "../../components/common/Input";
 import { Button } from "../../components/common/Button";
+import { AuthURLs } from "../../constants/auth.paths";
+import type { FC } from "react";
 
 type SignupUser = z.infer<typeof SignupSchema>;
 
-export default function Signup() {
+const Signup: FC = () => {
   const methods = useForm<SignupUser>({
     mode: "onChange",
     defaultValues: {
@@ -61,7 +63,7 @@ export default function Signup() {
             </div>
             <p className="text-center pt-7 pb-5">
               Already have an account?{" "}
-              <Link to="/login" className="font-bold text-secondary">
+              <Link to={AuthURLs.login} className="font-bold text-secondary">
                 Login
               </Link>
             </p>
@@ -70,4 +72,6 @@ export default function Signup() {
       </div>
     </div>
   );
-}
+};
+
+export default Signup;

@@ -6,10 +6,12 @@ import { LoginSchema } from "../../schemas/userInfoSchema";
 import { Input } from "../../components/common/Input";
 import ErrorMessage from "../../components/common/ErrorMessage";
 import { Button } from "../../components/common/Button";
+import { AuthURLs } from "../../constants/auth.paths";
+import type { FC } from "react";
 
 type LoginUser = z.infer<typeof LoginSchema>;
 
-export default function Login() {
+const Login: FC = () => {
   const methods = useForm<LoginUser>({
     mode: "onChange",
     defaultValues: {
@@ -63,7 +65,7 @@ export default function Login() {
             </div>
             <p className="text-center pt-10 pb-5">
               Don't have an account?{" "}
-              <Link to="/signup" className="font-bold text-secondary">
+              <Link to={AuthURLs.signup} className="font-bold text-secondary">
                 Register
               </Link>
             </p>
@@ -72,4 +74,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
