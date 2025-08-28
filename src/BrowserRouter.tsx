@@ -7,19 +7,20 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import LoadingPage from "./pages/LoadingPage";
-import { Paths } from "./paths";
+import { AuthURLs } from "./constants/auth.paths";
+import { AppURLs } from "./constants/app.paths";
 
-const Signup = lazy(() => import(Paths.signup));
-const Login = lazy(() => import(Paths.login));
-const TodoDashBoard = lazy(() => import(Paths.dashboard));
-const DetailTodo = lazy(() => import(Paths.detailTodo));
+const Signup = lazy(() => import("./pages/authentication/Signup"));
+const Login = lazy(() => import("./pages/authentication/Login"));
+const TodoDashBoard = lazy(() => import("./pages/main/TodoDashBoard"));
+const DetailTodo = lazy(() => import("./pages/main/DetailTodo"));
 
-export const router = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" loader={() => redirect("/dashboard")} />
+      <Route path="/" loader={() => redirect(AuthURLs.login)} />
       <Route
-        path="/signup"
+        path={AuthURLs.signup}
         element={
           <Suspense fallback={<LoadingPage />}>
             <Signup />
@@ -27,7 +28,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/login"
+        path={AuthURLs.login}
         element={
           <Suspense fallback={<LoadingPage />}>
             <Login />
@@ -35,7 +36,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/home"
+        path={AppURLs.home}
         element={
           <Suspense fallback={<LoadingPage />}>
             <Navbar>
@@ -47,7 +48,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/dashboard"
+        path={AppURLs.dashboard}
         element={
           <Suspense fallback={<LoadingPage />}>
             <Navbar>
@@ -57,7 +58,7 @@ export const router = createBrowserRouter(
         }
       >
         <Route
-          path="task/:taskId"
+          path={AppURLs.detailTodo}
           element={
             <Suspense fallback={<LoadingPage />}>
               <DetailTodo />
@@ -68,3 +69,5 @@ export const router = createBrowserRouter(
     </>,
   ),
 );
+
+export default router;

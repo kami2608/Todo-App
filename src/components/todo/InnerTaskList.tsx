@@ -1,13 +1,13 @@
 import { memo } from "react";
 import type { Task } from "../../types/Task";
 import { FixedSizeList, type ListChildComponentProps } from "react-window";
-import { TaskCard } from "./TaskCard";
+import TaskCard from "./TaskCard";
 
 interface InnerListProps {
   items: Task[];
 }
 
-export const InnerList = memo<InnerListProps>(({ items }) => (
+const InnerList = memo<InnerListProps>(({ items }) => (
   <FixedSizeList
     height={440}
     width={280}
@@ -28,3 +28,5 @@ export const InnerList = memo<InnerListProps>(({ items }) => (
     )}
   </FixedSizeList>
 ));
+
+export default InnerList;

@@ -4,7 +4,7 @@ export enum Priority {
   LOW = "LOW",
 }
 
-export const PriorityObject = {
+export const PRIORITY_FILTER_OPTIONS: Record<Priority, string> = {
   [Priority.HIGH]: "HIGH",
   [Priority.MEDIUM]: "MEDIUM",
   [Priority.LOW]: "LOW",

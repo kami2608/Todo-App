@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, type FC } from "react";
 import { Button } from "../common/Button";
 import FilterDialog from "./FilterDialog";
 
-export default function TodoHeader() {
+const TodoHeader: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,4 +19,6 @@ export default function TodoHeader() {
       </div>
     </>
   );
-}
+};
+
+export default TodoHeader;

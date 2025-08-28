@@ -11,7 +11,7 @@ interface TaskCardProps {
   taskStatus: Status;
 }
 
-export const TaskCard: FC<TaskCardProps> = ({
+const TaskCard: FC<TaskCardProps> = ({
   index,
   taskId,
   taskTitle,
@@ -39,3 +39,5 @@ export const TaskCard: FC<TaskCardProps> = ({
     </Draggable>
   );
 };
+
+export default TaskCard;

@@ -4,14 +4,14 @@ import { Droppable } from "@hello-pangea/dnd";
 import type { Task } from "../../types/Task";
 import { card } from "../../styles/card.variants";
 import { column } from "../../styles/column.variants";
-import { InnerList } from "./InnerTaskList";
+import InnerList from "./InnerTaskList";
 
 interface StatusColumnProps {
   taskStatus: Status;
   items: Task[];
 }
 
-export const StatusColumn: FC<StatusColumnProps> = ({ taskStatus, items }) => {
+const StatusColumn: FC<StatusColumnProps> = ({ taskStatus, items }) => {
   return (
     <Droppable
       droppableId={taskStatus}
@@ -51,3 +51,5 @@ export const StatusColumn: FC<StatusColumnProps> = ({ taskStatus, items }) => {
     </Droppable>
   );
 };
+
+export default StatusColumn;

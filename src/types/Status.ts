@@ -8,7 +8,7 @@ export enum Status {
   DONE = "DONE",
 }
 
-export const StatusObject = {
+export const STATUS_FILTER_OPTIONS: Record<Status, string> = {
   [Status.TODO]: "TODO",
   [Status.IN_PROGRESS]: "IN PROGRESS",
   [Status.IN_REVIEW]: "IN REVIEW",

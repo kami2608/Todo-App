@@ -1,8 +1,9 @@
+import type { FC } from "react";
 import { useParams, useOutletContext } from "react-router";
 
 type ContextType = { close: () => void };
 
-export default function DetailTodo() {
+const DetailTodo: FC = () => {
   const { taskId } = useParams();
   const { close } = useOutletContext<ContextType>();
 
@@ -26,4 +27,6 @@ export default function DetailTodo() {
       </div>
     </div>
   );
-}
+};
+
+export default DetailTodo;

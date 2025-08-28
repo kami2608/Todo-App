@@ -1,7 +1,8 @@
 import { Input } from "../common/Input";
 import { Checkbox } from "../common/Checkbox";
-import { Priority, PriorityObject } from "../../types/Priority";
+import { Priority, PRIORITY_FILTER_OPTIONS } from "../../types/Priority";
 import { FormProvider, useForm } from "react-hook-form";
+import type { FC } from "react";
 
 const members: string[] = ["Member 1", "Member 2", "Member 3"];
 
@@ -10,7 +11,7 @@ type FilterDialogProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function FilterDialog({ isOpen, setIsOpen }: FilterDialogProps) {
+const FilterDialog: FC<FilterDialogProps> = ({ isOpen, setIsOpen }) => {
   const methods = useForm();
   function handleClose() {
     setIsOpen(false);
@@ -44,15 +45,17 @@ export default function FilterDialog({ isOpen, setIsOpen }: FilterDialogProps) {
         ))}
 
         <p className="font-bold">Priority</p>
-        {Object.keys(PriorityObject).map((key) => (
+        {Object.keys(PRIORITY_FILTER_OPTIONS).map((key) => (
           <Checkbox
-            key={PriorityObject[key as Priority]}
-            name={PriorityObject[key as Priority]}
+            key={PRIORITY_FILTER_OPTIONS[key as Priority]}
+            name={PRIORITY_FILTER_OPTIONS[key as Priority]}
           >
-            {PriorityObject[key as Priority]}
+            {PRIORITY_FILTER_OPTIONS[key as Priority]}
           </Checkbox>
         ))}
       </FormProvider>
     </div>
   );
-}
+};
+
+export default FilterDialog;

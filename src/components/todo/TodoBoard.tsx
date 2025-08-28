@@ -1,9 +1,9 @@
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import { dummyTasks } from "../../data/dummyTasks";
 import type { Task } from "../../types/Task";
-import { StatusColumn } from "./StatusColumn";
-import { Status, StatusObject } from "../../types/Status";
-import { useState } from "react";
+import StatusColumn from "./StatusColumn";
+import { Status, STATUS_FILTER_OPTIONS } from "../../types/Status";
+import { useState, type FC } from "react";
 
 const getTasksByStatus = (status: Status, data: Task[]) => {
   return data.filter((task) => task.status === status);
@@ -13,14 +13,16 @@ const checkValidStatus = (
   currentStatus: Status,
   updateStatus: Status,
 ): boolean => {
-  const currentIndex = Object.keys(StatusObject).indexOf(currentStatus);
-  const updateIndex = Object.keys(StatusObject).indexOf(updateStatus);
+  const currentIndex = Object.keys(STATUS_FILTER_OPTIONS).indexOf(
+    currentStatus,
+  );
+  const updateIndex = Object.keys(STATUS_FILTER_OPTIONS).indexOf(updateStatus);
 
   if (currentIndex === -1 || updateIndex === -1) return false;
   return updateIndex > currentIndex;
 };
 
-export default function TodoBoard() {
+const TodoBoard: FC = () => {
   const [data, setData] = useState<Task[]>(dummyTasks);
 
   const handleDragEnd = (result: DropResult) => {
@@ -68,12 +70,12 @@ export default function TodoBoard() {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="flex gap-6">
-        {Object.keys(StatusObject).map((key) => (
+        {Object.keys(STATUS_FILTER_OPTIONS).map((key) => (
           <StatusColumn
-            key={StatusObject[key as Status]}
-            taskStatus={StatusObject[key as Status] as Status}
+            key={STATUS_FILTER_OPTIONS[key as Status]}
+            taskStatus={STATUS_FILTER_OPTIONS[key as Status] as Status}
             items={getTasksByStatus(
-              StatusObject[key as Status] as Status,
+              STATUS_FILTER_OPTIONS[key as Status] as Status,
               data,
             )}
           />
@@ -81,4 +83,6 @@ export default function TodoBoard() {
       </div>
     </DragDropContext>
   );
-}
+};
+
+export default TodoBoard;
