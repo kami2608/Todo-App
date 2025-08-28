@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 import { Status, STATUS_FILTER_OPTIONS } from "../types/Status";
 
 export const column = tv({
-  base: "p-4 border rounded-lg w-[300px] max-h-[400px] min-h-[150px] flex flex-col",
+  base: "p-4 border rounded-lg w-[300px] max-h-[400px] min-h-[150px] flex flex-col overflow-y-auto",
   variants: {
     status: {
       [STATUS_FILTER_OPTIONS[Status.TODO]]: "bg-gray-100 text-gray-800",
