@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import { dummyTasks } from "../../data/dummyTasks";
 import type { Task } from "../../types/Task";
 import { StatusColumn } from "./StatusColumn";
-import { Status, statusOrder } from "../../types/Status";
+import { Status, StatusObject } from "../../types/Status";
+import { useState } from "react";
 
 const getTasksByStatus = (status: Status, data: Task[]) => {
   return data.filter((task) => task.status === status);
@@ -13,8 +13,8 @@ const checkValidStatus = (
   currentStatus: Status,
   updateStatus: Status,
 ): boolean => {
-  const currentIndex = statusOrder.indexOf(currentStatus);
-  const updateIndex = statusOrder.indexOf(updateStatus);
+  const currentIndex = Object.keys(StatusObject).indexOf(currentStatus);
+  const updateIndex = Object.keys(StatusObject).indexOf(updateStatus);
 
   if (currentIndex === -1 || updateIndex === -1) return false;
   return updateIndex > currentIndex;
@@ -26,24 +26,23 @@ export default function TodoBoard() {
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
-    if (result.destination.droppableId === result.source.droppableId) {
-      const taskList = getTasksByStatus(
-        result.source.droppableId as Status,
-        data,
-      );
-      const [moved] = taskList.splice(result.source.index, 1);
-      taskList.splice(result.destination.index, 0, moved);
-      const otherTasks = data.filter(
-        (task) => task.status !== (result.source.droppableId as Status),
-      );
+    const currentStatus = result.source.droppableId as Status;
+    const updateStatus = result.destination.droppableId as Status;
+
+    const currentIndex = result.source.index;
+    const destinationIndex = result.destination.index;
+
+    const draggedTask = data.find((task) => task.id === result.draggableId);
+
+    if (currentStatus === updateStatus) {
+      const taskList = getTasksByStatus(currentStatus, data);
+      const [moved] = taskList.splice(currentIndex, 1);
+      taskList.splice(destinationIndex, 0, moved);
+      const otherTasks = data.filter((task) => task.status !== currentStatus);
       const newData = [...otherTasks, ...taskList];
       setData(newData);
       return;
     }
-
-    const currentStatus = result.source.droppableId as Status;
-    const updateStatus = result.destination.droppableId as Status;
-    const draggedTask = data.find((task) => task.id === result.draggableId);
 
     if (checkValidStatus(currentStatus, updateStatus) && draggedTask) {
       const sourceTasks = data.filter((task) => task.status === currentStatus);
@@ -51,10 +50,10 @@ export default function TodoBoard() {
         (task) => task.status === updateStatus,
       );
 
-      sourceTasks.splice(result.source.index, 1);
-      draggedTask.status = result.destination.droppableId as Status;
+      sourceTasks.splice(currentIndex, 1);
+      draggedTask.status = updateStatus;
 
-      destinationTasks.splice(result.destination.index, 0, draggedTask);
+      destinationTasks.splice(destinationIndex, 0, draggedTask);
 
       const otherTasks = data.filter(
         (task) => task.status !== currentStatus && task.status !== updateStatus,
@@ -69,11 +68,14 @@ export default function TodoBoard() {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="flex gap-6">
-        {Object.values(Status).map((status) => (
+        {Object.keys(StatusObject).map((key) => (
           <StatusColumn
-            key={status}
-            taskStatus={status}
-            items={getTasksByStatus(status, data)}
+            key={StatusObject[key as Status]}
+            taskStatus={StatusObject[key as Status] as Status}
+            items={getTasksByStatus(
+              StatusObject[key as Status] as Status,
+              data,
+            )}
           />
         ))}
       </div>

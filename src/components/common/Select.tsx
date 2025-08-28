@@ -19,12 +19,10 @@ export const Select: FC<SelectProps> = ({
   variant,
   ...props
 }) => {
-  let register: any;
-  const methods = useFormContext();
-
-  if (methods) {
-    register = methods.register;
-  }
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   const unique = id || name;
 
@@ -32,7 +30,7 @@ export const Select: FC<SelectProps> = ({
     <div className="flex items-center gap-2">
       <label htmlFor={unique}>{label}</label>
       <select
-        {...(register ? register(name) : {})}
+        {...register(name)}
         name={name}
         id={unique}
         {...props}
@@ -44,9 +42,7 @@ export const Select: FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {methods && methods.formState.errors[name] && (
-        <ErrorMessage error={methods.formState.errors[name]} />
-      )}
+      {errors[name] && <ErrorMessage error={errors[name]} />}
     </div>
   );
 };

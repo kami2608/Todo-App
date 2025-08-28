@@ -6,11 +6,13 @@ import {
   Route,
 } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
+import LoadingPage from "./pages/LoadingPage";
+import { Paths } from "./paths";
 
-const Signup = lazy(() => import("./pages/authentication/Signup"));
-const Login = lazy(() => import("./pages/authentication/Login"));
-const TodoDashBoard = lazy(() => import("./pages/main/TodoDashBoard"));
-const DetailTodo = lazy(() => import("./pages/main/DetailTodo"));
+const Signup = lazy(() => import(Paths.signup));
+const Login = lazy(() => import(Paths.login));
+const TodoDashBoard = lazy(() => import(Paths.dashboard));
+const DetailTodo = lazy(() => import(Paths.detailTodo));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +21,7 @@ export const router = createBrowserRouter(
       <Route
         path="/signup"
         element={
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Signup />
           </Suspense>
         }
@@ -27,7 +29,7 @@ export const router = createBrowserRouter(
       <Route
         path="/login"
         element={
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Login />
           </Suspense>
         }
@@ -35,7 +37,7 @@ export const router = createBrowserRouter(
       <Route
         path="/home"
         element={
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Navbar>
               <h1 className="text-center text-heading font-bold">
                 Welcome to Todo App
@@ -47,7 +49,7 @@ export const router = createBrowserRouter(
       <Route
         path="/dashboard"
         element={
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<LoadingPage />}>
             <Navbar>
               <TodoDashBoard />
             </Navbar>
@@ -57,7 +59,7 @@ export const router = createBrowserRouter(
         <Route
           path="task/:taskId"
           element={
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<LoadingPage />}>
               <DetailTodo />
             </Suspense>
           }

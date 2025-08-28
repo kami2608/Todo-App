@@ -1,12 +1,8 @@
-import type { ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../common/Button";
+import type { ReactChildren } from "../../types/ReactChildren";
 
-type Props = {
-  children: ReactNode;
-};
-
-export default function Navbar({ children }: Props) {
+export default function Navbar({ children }: ReactChildren) {
   const navigate = useNavigate();
   return (
     <div className="flex min-h-screen z-10">
